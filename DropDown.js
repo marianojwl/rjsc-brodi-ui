@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 function DropDown({button_child=null, show_arrow_down=true, items=[], borderColor=null}) {
@@ -15,7 +16,15 @@ function DropDown({button_child=null, show_arrow_down=true, items=[], borderColo
 
       <ul className="dropdown-menu" style={{borderColor:'#cccccc ' + (borderColor??'#dbdbdb'), borderWidth: '0 0.35rem'}}>
         {
-          items?.map((item, i)=> <li key={i}><a className="dropdown-item text-end" {...item}>{item?.label}</a></li>)
+          items?.map((item, i)=> <li key={i}>
+            {
+              item?.to
+              ? <Link className="dropdown-item text-end" {...item}>{item?.label}</Link>
+              : item?.href
+                ? <a className="dropdown-item text-end" {...item}>{item?.label}</a>
+                : <span {...item}>{item?.label}</span>
+            }
+          </li>)
         }
       </ul>
     </div>
